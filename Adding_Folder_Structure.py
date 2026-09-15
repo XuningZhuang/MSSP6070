@@ -1,27 +1,47 @@
 from pathlib import Path
-from git import Repo 
+from git import Repo
 
-#----Setup----------------------------------------------------------
-# Repository root (current working directory)
-repo_root = Path("/workspaces/MSSP6070/")
-commit_msg = "Add Weekly Examples folder with placeholder"
+# Repository root
+repo_path = Path("/workspaces/Test")
 
-# Root-level folders lists
+# Open existing Git repository
+repo = Repo(repo_path)
+
+commit_msg = "Create repository folder structure"
+
+# Root folders
 root_folders = [
     "WeeklyModules",
     "Assignments",
     "data"
 ]
 
-# Create root folders
+# Create root folders and .gitkeep files
 for folder in root_folders:
-    (repo_root / folder).mkdir(parents=True, exist_ok=False)
+    folder_path = repo_path / folder
+    folder_path.mkdir(parents=True, exist_ok=True)
 
-# Create WeeklyModules subfolders Week01 - Week14
-weekly_modules = repo_root / "WeeklyModules"
+    # Create placeholder file so Git tracks folder
+    (folder_path / ".gitkeep").touch(exist_ok=True)
+
+# Weekly module folders
+weekly_modules = repo_path / "WeeklyModules"
 
 for week_num in range(1, 15):
     week_folder = weekly_modules / f"Week{week_num:02d}"
-    week_folder.mkdir(parents=True, exist_ok=False)
+    week_folder.mkdir(parents=True, exist_ok=True)
+
+    # Create placeholder file
+    (week_folder / ".gitkeep").touch(exist_ok=True)
+
+# Stage all changes
+repo.git.add(A=True)
+
+# Commit only if changes exist
+if repo.is_dirty(untracked_files=True):
+    repo.index.commit(commit_msg)
+    print("Changes committed.")
+else:
+    print("No changes to commit.")
 
 print("Folder structure created successfully!")
