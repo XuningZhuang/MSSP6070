@@ -1,10 +1,12 @@
 from pathlib import Path
 from git import Repo 
 
+#----Setup----------------------------------------------------------
 # Repository root (current working directory)
 repo_root = Path("/workspaces/MSSP6070/")
+commit_msg = "Add Weekly Examples folder with placeholder"
 
-# Root-level folders
+# Root-level folders lists
 root_folders = [
     "WeeklyModules,"
     "Assignments",
