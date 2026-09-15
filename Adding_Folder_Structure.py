@@ -18,7 +18,7 @@ for folder in root_folders:
 # Create WeeklyModules subfolders Week01 - Week14
 weekly_modules = repo_root / "WeeklyModules"
 
-for week_num in range(4, 15):
+for week_num in range(1, 15):
     week_folder = weekly_modules / f"Week{week_num:02d}"
     week_folder.mkdir(parents=True, exist_ok=False)
 
